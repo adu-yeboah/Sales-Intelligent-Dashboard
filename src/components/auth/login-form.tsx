@@ -7,6 +7,7 @@ import * as z from 'zod';
 import { useAuth } from '@/contexts/auth-context';
 import { cn } from '@/lib/utils/cn';
 import { Loader2, Mail, Lock } from 'lucide-react';
+import Link from 'next/link';
 
 const loginSchema = z.object({
     email: z.string().email('Invalid email address'),
@@ -42,8 +43,8 @@ export function LoginForm() {
                 </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div className="gap-2">
+            <form onSubmit={handleSubmit(onSubmit)} className="my-4">
+                <div className="flex flex-col gap-2 mb-3">
                     <label
                         htmlFor="email"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -68,7 +69,7 @@ export function LoginForm() {
                     )}
                 </div>
 
-                <div className="gap-2">
+                <div className="flex flex-col gap-2 mb-3">
                     <label
                         htmlFor="password"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -113,9 +114,9 @@ export function LoginForm() {
 
             <div className="text-center text-sm">
                 <span className="text-gray-400">Don&apos;t have an account? </span>
-                <a href="/signup" className="font-semibold text-blue-500 hover:text-blue-400">
+                <Link href="/signup" className="font-semibold text-blue-500 hover:text-blue-400">
                     Sign up
-                </a>
+                </Link>
             </div>
         </div>
     );

@@ -43,8 +43,8 @@ export function SignupForm() {
                 </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="gap-4">
-                <div className="gap-2">
+            <form onSubmit={handleSubmit(onSubmit)} className="my-4">
+                <div className="flex flex-col gap-2 mb-3">
                     <label
                         htmlFor="name"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -69,7 +69,7 @@ export function SignupForm() {
                     )}
                 </div>
 
-                <div className="gap-2">
+                <div className="flex flex-col gap-2 mb-3">
                     <label
                         htmlFor="email"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -94,7 +94,7 @@ export function SignupForm() {
                     )}
                 </div>
 
-                <div className="gap-2">
+                <div className="flex flex-col gap-2 mb-3">
                     <label
                         htmlFor="password"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"

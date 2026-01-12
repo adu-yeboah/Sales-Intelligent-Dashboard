@@ -7,6 +7,7 @@ import * as z from 'zod';
 import { useAuth } from '@/contexts/auth-context';
 import { cn } from '@/lib/utils/cn';
 import { Loader2, Mail, Lock, User } from 'lucide-react';
+import Link from 'next/link';
 
 const signupSchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -35,113 +36,116 @@ export function SignupForm() {
     };
 
     return (
-        <div className="w-full max-w-md gap-6">
+        <div className="w-full space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold tracking-tight">Create an account</h1>
-                <p className="mt-2 text-sm text-gray-400">
-                    Sign up to get started with Sales Intelligence
+                <h1 className="text-3xl font-black text-white tracking-tight">Request Access</h1>
+                <p className="mt-2 text-sm text-zinc-500 font-medium tracking-tight">
+                    Join the elite network of intelligence analysts.
                 </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="my-4">
-                <div className="flex flex-col gap-2 mb-3">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                <div className="space-y-2">
                     <label
                         htmlFor="name"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 ml-1"
                     >
                         Full Name
                     </label>
-                    <div className="relative">
-                        <User className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
+                    <div className="relative group">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600 group-focus-within:text-blue-500 transition-colors" />
                         <input
                             {...register('name')}
                             id="name"
                             type="text"
-                            placeholder="John Doe"
+                            placeholder="Alex Sterling"
                             className={cn(
-                                "flex h-10 w-full rounded-md border border-gray-700 bg-gray-900/50 px-10 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-                                errors.name && "border-red-500 focus-visible:ring-red-500"
+                                "flex h-12 w-full rounded-2xl border border-white/5 bg-white/5 px-12 py-2 text-[14px] text-zinc-200 ring-offset-background placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.08] transition-all",
+                                errors.name && "border-rose-500/50 focus:border-rose-500"
                             )}
                         />
                     </div>
                     {errors.name && (
-                        <p className="text-sm font-medium text-red-500">{errors.name.message}</p>
+                        <p className="text-xs font-bold text-rose-500 px-1">{errors.name.message}</p>
                     )}
                 </div>
 
-                <div className="flex flex-col gap-2 mb-3">
+                <div className="space-y-2">
                     <label
                         htmlFor="email"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 ml-1"
                     >
-                        Email Address
+                        Work Email
                     </label>
-                    <div className="relative">
-                        <Mail className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
+                    <div className="relative group">
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600 group-focus-within:text-blue-500 transition-colors" />
                         <input
                             {...register('email')}
                             id="email"
                             type="email"
-                            placeholder="name@example.com"
+                            placeholder="alex@nexus.intel"
                             className={cn(
-                                "flex h-10 w-full rounded-md border border-gray-700 bg-gray-900/50 px-10 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-                                errors.email && "border-red-500 focus-visible:ring-red-500"
+                                "flex h-12 w-full rounded-2xl border border-white/5 bg-white/5 px-12 py-2 text-[14px] text-zinc-200 ring-offset-background placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.08] transition-all",
+                                errors.email && "border-rose-500/50 focus:border-rose-500"
                             )}
                         />
                     </div>
                     {errors.email && (
-                        <p className="text-sm font-medium text-red-500">{errors.email.message}</p>
+                        <p className="text-xs font-bold text-rose-500 px-1">{errors.email.message}</p>
                     )}
                 </div>
 
-                <div className="flex flex-col gap-2 mb-3">
+                <div className="space-y-2">
                     <label
                         htmlFor="password"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 ml-1"
                     >
-                        Password
+                        Security Key
                     </label>
-                    <div className="relative">
-                        <Lock className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
+                    <div className="relative group">
+                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600 group-focus-within:text-blue-500 transition-colors" />
                         <input
                             {...register('password')}
                             id="password"
                             type="password"
                             placeholder="••••••••"
                             className={cn(
-                                "flex h-10 w-full rounded-md border border-gray-700 bg-gray-900/50 px-10 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-                                errors.password && "border-red-500 focus-visible:ring-red-500"
+                                "flex h-12 w-full rounded-2xl border border-white/5 bg-white/5 px-12 py-2 text-[14px] text-zinc-200 ring-offset-background placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.08] transition-all",
+                                errors.password && "border-rose-500/50 focus:border-rose-500"
                             )}
                         />
                     </div>
                     {errors.password && (
-                        <p className="text-sm font-medium text-red-500">
+                        <p className="text-xs font-bold text-rose-500 px-1">
                             {errors.password.message}
                         </p>
                     )}
                 </div>
 
-                <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="inline-flex h-10 w-full items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-                >
-                    {isLoading ? (
-                        <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Creating account...
-                        </>
-                    ) : (
-                        'Sign Up'
-                    )}
-                </button>
+                <div className="pt-2">
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="relative h-12 w-full flex items-center justify-center rounded-2xl bg-blue-600 text-sm font-black text-white transition-all hover:bg-blue-500 hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-blue-500/20 disabled:opacity-50 disabled:pointer-events-none group overflow-hidden"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
+                        {isLoading ? (
+                            <div className="flex items-center gap-2">
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                                <span>Verifying Clearance...</span>
+                            </div>
+                        ) : (
+                            <span className="uppercase tracking-[0.2em]">Request Clearance</span>
+                        )}
+                    </button>
+                </div>
             </form>
 
-            <div className="text-center text-sm">
-                <span className="text-gray-400">Already have an account? </span>
-                <a href="/login" className="font-semibold text-blue-500 hover:text-blue-400">
-                    Sign in
-                </a>
+            <div className="text-center pt-2">
+                <span className="text-zinc-500 text-xs font-medium">Already have clearance? </span>
+                <Link href="/login" className="text-xs font-black uppercase tracking-widest text-white hover:text-blue-400 transition-all border-b border-white/10 hover:border-blue-500 ml-1">
+                    Sign In
+                </Link>
             </div>
         </div>
     );

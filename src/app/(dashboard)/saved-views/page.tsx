@@ -29,58 +29,80 @@ const MOCK_SAVED_VIEWS = [
 
 export default function SavedViewsPage() {
     return (
-        <div className="p-8 max-w-6xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
+        <div className="p-10 max-w-7xl mx-auto bg-zinc-950 min-h-full">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
                 <div>
-                    <h1 className="text-2xl font-bold text-white tracking-tight">Saved Views</h1>
-                    <p className="text-gray-400 text-sm mt-1">
-                        Revisit your custom filtered segments quickly
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className="p-1.5 rounded-lg bg-violet-500/10 text-violet-400">
+                            <Bookmark size={16} />
+                        </div>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-violet-500/80">Segment Intelligence</span>
+                    </div>
+                    <h1 className="text-3xl font-black text-white tracking-tight">Saved Configurations</h1>
+                    <p className="text-zinc-500 text-sm mt-2 font-medium">
+                        Quickly deploy your custom audience filters and data projections.
                     </p>
                 </div>
-                <button className="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">
-                    Create New View
+                <button className="flex items-center px-6 py-3 text-sm font-black text-white bg-blue-600 rounded-2xl hover:bg-blue-500 transition-all shadow-2xl shadow-blue-600/20 active:scale-95">
+                    Deploy New Configuration
                 </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {MOCK_SAVED_VIEWS.map((view) => (
                     <div
                         key={view.id}
-                        className="group bg-gray-900/40 border border-gray-800 p-6 rounded-2xl hover:border-blue-500/50 hover:bg-gray-900/60 transition-all cursor-pointer relative overflow-hidden"
+                        className="group bg-zinc-900/40 border border-white/5 p-8 rounded-[2.5rem] hover:bg-white/[0.03] transition-all duration-500 cursor-pointer relative overflow-hidden backdrop-blur-xl"
                     >
-                        <div className="absolute top-0 right-0 p-4 opacity-5 transform translate-x-4 translate-y-[-4] group-hover:opacity-10 transition-opacity">
-                            <Bookmark size={80} />
+                        <div className="absolute top-0 right-0 p-8 opacity-[0.02] transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-700">
+                            <Bookmark size={120} />
                         </div>
 
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 rounded-lg bg-blue-600/10 flex items-center justify-center text-blue-500">
-                                <Bookmark size={20} />
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-12 rounded-2xl bg-zinc-950 border border-white/10 flex items-center justify-center text-zinc-400 group-hover:scale-110 group-hover:border-blue-500/30 transition-all">
+                                <Bookmark size={24} />
                             </div>
-                            <h3 className="font-bold text-white group-hover:text-blue-400 transition-colors uppercase tracking-tight text-sm">
-                                {view.name}
-                            </h3>
-                        </div>
-
-                        <p className="text-xs text-gray-500 mb-6 font-medium">
-                            {view.filters}
-                        </p>
-
-                        <div className="flex items-center justify-between pt-4 border-t border-gray-800/50">
-                            <div className="flex flex-col">
-                                <span className="text-xs text-gray-500">Leads</span>
-                                <span className="text-sm font-bold text-white">{view.leadsCount}</span>
-                            </div>
-                            <div className="flex flex-col text-right">
-                                <span className="text-xs text-gray-500">Last seen</span>
-                                <span className="text-xs font-medium text-gray-400">{view.lastAccessed}</span>
+                            <div>
+                                <h3 className="font-black text-white group-hover:text-blue-400 transition-colors tracking-tight text-lg">
+                                    {view.name}
+                                </h3>
+                                <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mt-0.5">Preset ID: {view.id}4A</p>
                             </div>
                         </div>
 
-                        <div className="mt-6 flex items-center text-xs font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition-all">
-                            Apply View <ArrowRight size={14} className="ml-1" />
+                        <div className="bg-black/40 rounded-2xl p-4 border border-white/5 mb-8">
+                            <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mb-2">Active Parameters:</p>
+                            <p className="text-xs text-zinc-400 font-medium leading-relaxed">
+                                {view.filters}
+                            </p>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-6 border-t border-white/5">
+                            <div className="flex items-center gap-3">
+                                <div className="text-left flex flex-col">
+                                    <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Targets</span>
+                                    <span className="text-lg font-black text-white">{view.leadsCount}</span>
+                                </div>
+                            </div>
+                            <div className="text-right flex flex-col">
+                                <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Last Deploy</span>
+                                <span className="text-xs font-bold text-zinc-400 mt-1">{view.lastAccessed}</span>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 flex items-center justify-center py-3 bg-white/5 rounded-xl text-[10px] font-black uppercase tracking-[0.3em] text-blue-500 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 border border-blue-500/10">
+                            Synchronize & View <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
                         </div>
                     </div>
                 ))}
+
+                {/* Create New Card */}
+                <div className="group border-2 border-dashed border-white/5 p-8 rounded-[2.5rem] hover:border-blue-500/30 transition-all duration-500 cursor-pointer flex flex-col items-center justify-center text-center py-20">
+                    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-zinc-600 group-hover:scale-110 group-hover:text-blue-500 group-hover:bg-blue-500/10 transition-all mb-4">
+                        <Bookmark size={32} />
+                    </div>
+                    <p className="text-sm font-black text-zinc-500 uppercase tracking-widest">Define New Parameter Set</p>
+                </div>
             </div>
         </div>
     );

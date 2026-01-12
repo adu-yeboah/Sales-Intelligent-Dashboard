@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
     const isPublicRoute =
         pathname === '/login' ||
         pathname === '/signup' ||
-        pathname.startsWith('/api/auth');
+        pathname.startsWith('/');
 
 
     const isAuthenticated = request.cookies.get('auth_session')?.value;

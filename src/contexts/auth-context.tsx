@@ -27,60 +27,83 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const router = useRouter();
 
     useEffect(() => {
-        // Check for existing session (mocking local storage check)
-        const storedUser = localStorage.getItem('auth_user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-        setIsLoading(false);
+        const checkSession = async () => {
+            try {
+                const res = await fetch('/api/auth/me'); // We still keep this for the demo or simple check
+                if (res.ok) {
+                    const data = await res.json();
+                    setUser(data.user);
+                }
+            } catch (err) {
+                console.error('Failed to check session', err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        checkSession();
     }, []);
 
-    const login = async (email: string, _password: string) => {
+    const login = async (email: string, password: string) => {
         setIsLoading(true);
         try {
-            // Mock login implementation
-            const mockUser: User = {
-                id: '1',
-                email,
-                name: email.split('@')[0],
-                role: 'user',
-            };
+            // For now, we simulate a login that sets a real session eventually
+            // In NextAuth we would use signIn('credentials', { email, password })
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
 
-            await new Promise((resolve) => setTimeout(resolve, 800));
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || 'Login failed');
+            }
 
-            setUser(mockUser);
-            localStorage.setItem('auth_user', JSON.stringify(mockUser));
+            const data = await res.json();
+            setUser(data.user);
             router.push('/leads');
+        } catch (error) {
+            console.error(error);
+            throw error;
         } finally {
             setIsLoading(false);
         }
     };
 
-    const signup = async (email: string, name: string, _password: string) => {
+    const signup = async (email: string, name: string, password: string) => {
         setIsLoading(true);
         try {
-            // Mock signup implementation
-            const mockUser: User = {
-                id: Math.random().toString(36).substr(2, 9),
-                email,
-                name,
-                role: 'user',
-            };
+            const res = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, name, password }),
+            });
 
-            await new Promise((resolve) => setTimeout(resolve, 800));
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || 'Signup failed');
+            }
 
-            setUser(mockUser);
-            localStorage.setItem('auth_user', JSON.stringify(mockUser));
+            const data = await res.json();
+            setUser(data.user);
             router.push('/leads');
+        } catch (error) {
+            console.error(error);
+            throw error;
         } finally {
             setIsLoading(false);
         }
     };
 
-    const logout = () => {
-        setUser(null);
-        localStorage.removeItem('auth_user');
-        router.push('/login');
+    const logout = async () => {
+        try {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            setUser(null);
+            router.push('/login');
+        } catch (error) {
+            console.error('Logout failed', error);
+        }
     };
 
     return (
